@@ -1,4 +1,7 @@
 import sqlite3
+from flask import jsonify
+from flask import json
+
 from flask import Flask, render_template, request, url_for, flash, redirect
 from werkzeug.exceptions import abort
 
@@ -87,3 +90,6 @@ def delete(id):
     conn.close()
     flash('"{}" was successfully deleted!'.format(post['title']))
     return redirect(url_for('index'))
+
+if __name__ == "__main__":
+   app.run(host='0.0.0.0')
