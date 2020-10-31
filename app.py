@@ -80,6 +80,37 @@ def edit(id):
 
     return render_template('edit.html', post=post)
 
+@app.route('/healthz')
+def healthcheck():
+    response = app.response_class(
+            response=json.dumps({"result":"OK - healthy"}),
+            status=200,
+            mimetype='application/json'
+    )
+
+    return response
+
+@app.route('/stats')
+def stats():
+    response = app.response_class(
+            response=json.dumps({"status":"success","code":0,"data":{"UserCount":140,"UserCountActive":23}}),
+            status=200,
+            mimetype='application/json'
+    )
+
+    return response
+
+@app.route('/logs')
+def logs():
+    response = app.response_class(
+            response=json.dumps({"status":"success", "data": [{"date":"2012-01-01 02:00:01", "severity":"ERROR", "msg":"Foo failed"},
+                {"date":"2012-01-01 02:04:02", "severity":"INFO", "msg":"Bar was successful"},
+                {"date":"2012-01-01 02:10:12", "severity":"DEBUG", "msg":"Baz was notified"}]}),
+            status=200,
+            mimetype='application/json'
+    )
+
+    return response
 
 @app.route('/<int:id>/delete', methods=('POST',))
 def delete(id):
